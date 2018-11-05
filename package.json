@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"    
+    "dev": "nodemon index.js",
+    "test": "nyc --reporter=text mocha"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -15,6 +16,11 @@
     "web-push": "^3.3.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.5"
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.5",
+    "nyc": "^13.1.0",
+    "proxyquire": "^2.1.0",
+    "sinon": "^7.1.1"
   }
 }

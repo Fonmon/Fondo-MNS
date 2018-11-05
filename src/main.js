@@ -19,7 +19,7 @@ sendNotification = async (obj) => {
         try {
             await webpush.sendNotification(subscription, JSON.stringify(obj.message));
         } catch (err) {
-            console.log(err);
+            console.log(err.body);
             if(err.statusCode === 410)
                 invalidSubscriptions.push(subscription);
         }
