@@ -11,12 +11,12 @@ script:
   - npm test
 deploy:
   - provider: script
-    script: sh $TRAVIS_BUILD_DIR/scripts/trigger-deploy.sh $TRAVIS_COMMIT i-02fd1798f1ce6963a $TRAVIS_BRANCH
+    script: sh $TRAVIS_BUILD_DIR/scripts/trigger-deploy.sh $TRAVIS_COMMIT i-06e827f552c3f56a0 $TRAVIS_BRANCH
     skip_cleanup: true
     on:
       branch: master
-  - provider: script
-    script: sh $TRAVIS_BUILD_DIR/scripts/trigger-deploy.sh $TRAVIS_COMMIT i-09184c9cd4abacca0 $TRAVIS_BRANCH
-    skip_cleanup: true
-    on:
-      branch: develop
+  # - provider: script
+  #   script: sh $TRAVIS_BUILD_DIR/scripts/trigger-deploy.sh $TRAVIS_COMMIT i-028018a7f5b27a704 $TRAVIS_BRANCH
+  #   skip_cleanup: true
+  #   on:
+  #     branch: develop
