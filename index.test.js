@@ -16,16 +16,18 @@ describe('Send notification test', () => {
     });
 
     obj = {
-      body: JSON.stringify({
-        message: {
-          body: "Testing mns"
-        },
-        subscriptions: [{
-          endpoint: "endpoint1"
-        }, {
-          endpoint: "endpoint2"
-        }]
-      }),
+      Records: [{
+        body: JSON.stringify({
+          message: {
+            body: "Testing mns"
+          },
+          subscriptions: [{
+            endpoint: "endpoint1"
+          }, {
+            endpoint: "endpoint2"
+          }]
+        }),
+      }]
     }
   })
 

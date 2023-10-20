@@ -11,17 +11,21 @@ exports.handler = async (event) => {
     privateKey
   );
 
-  const invalidSubscriptions = []
-  const obj = JSON.parse(event.body);
+  const invalidSubscriptions = [];
 
-  for (index in obj.subscriptions) {
-    subscription = obj.subscriptions[index];
-    try {
-      await webpush.sendNotification(subscription, JSON.stringify(obj.message));
-    } catch (err) {
-      console.error(err.body);
-      if (err.statusCode === 410)
-        invalidSubscriptions.push(subscription);
+  for (i in event.Records) {
+    let record = event.Records[i];
+    let obj = JSON.parse(record.body);
+  
+    for (index in obj.subscriptions) {
+      subscription = obj.subscriptions[index];
+      try {
+        await webpush.sendNotification(subscription, JSON.stringify(obj.message));
+      } catch (err) {
+        console.error(err.body);
+        if (err.statusCode === 410)
+          invalidSubscriptions.push(subscription);
+      }
     }
   }
 
