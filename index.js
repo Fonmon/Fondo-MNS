@@ -1,15 +1,33 @@
-require('dotenv').config();
+const webpush = require('web-push');
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const router = require('./src/router');
+exports.handler = async (event) => {
+  const publicKey = process.env.VAPID_PUBLIC_KEY;
+  const privateKey = process.env.VAPID_PRIVATE_KEY;
+  const mailTo = process.env.VAPID_EMAIL;
 
-let app = express();
+  webpush.setVapidDetails(
+    mailTo,
+    publicKey,
+    privateKey
+  );
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use('/mns', router);
+  const invalidSubscriptions = []
+  const obj = JSON.parse(event.body);
 
-app.listen(9901, () => {
-    console.log('MNS Server is running on port 9901')
-});
+  for (index in obj.subscriptions) {
+    subscription = obj.subscriptions[index];
+    try {
+      await webpush.sendNotification(subscription, JSON.stringify(obj.message));
+    } catch (err) {
+      console.error(err.body);
+      if (err.statusCode === 410)
+        invalidSubscriptions.push(subscription);
+    }
+  }
+
+  // For reference
+  console.log('INVALID SUSCRIPTIONS')
+  console.log(invalidSubscriptions);
+  
+  return invalidSubscriptions
+}

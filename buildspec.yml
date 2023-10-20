@@ -1,0 +1,16 @@
+version: 0.2
+env:
+  shell: bash
+phases:
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run coverage
+  post_build:
+    commands:
+      - bash scripts/deploy

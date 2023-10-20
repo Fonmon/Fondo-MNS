@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo $CODEBUILD_WEBHOOK_EVENT
+echo $CODEBUILD_WEBHOOK_HEAD_REF
+
+if [ $CODEBUILD_WEBHOOK_EVENT == 'push' ] && [ $CODEBUILD_WEBHOOK_HEAD_REF == 'refs/heads/master' ]; then
+  npm run package
+  aws lambda update-function-code --function-name Fondo-MNS --zip-file fileb://fondo-mns.zip
+fi
