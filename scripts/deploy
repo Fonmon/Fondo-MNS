@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo $CODEBUILD_WEBHOOK_EVENT
-echo $CODEBUILD_WEBHOOK_HEAD_REF
-
 if [ $CODEBUILD_WEBHOOK_EVENT == 'PUSH' ] && [ $CODEBUILD_WEBHOOK_HEAD_REF == 'refs/heads/master' ]; then
   echo 'Deploying app to aws lambda'
   npm run package
