@@ -10,7 +10,7 @@
     "package": "npm-pack-zip"
   },
   "dependencies": {
-    "web-push": "^3.6.6"
+    "web-push": "^3.3.3"
   },
   "files": [
     "index.js"
